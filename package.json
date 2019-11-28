@@ -2,9 +2,17 @@
   "name": "paladin",
   "version": "0.0.1",
   "description": "A react-blessed-based terminal initiative and combat tracker",
-  "main": "index.js",
+  "main": "dist/main.js",
+  "preferGlobal": true,
+  "bin": {
+    "paladin": "./bin/paladin.js"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm run lint && npm run clean && npm run compile",
+    "start": "babel-node ./src/main.js",
+    "lint": "eslint src",
+    "clean": "rimraf ./dist",
+    "compile": "babel src --out-dir dist"
   },
   "repository": {
     "type": "git",
@@ -12,14 +20,41 @@
   },
   "keywords": [
     "dnd",
+    "rpg",
     "initiative",
     "blessed",
-    "react-blessed"
+    "react-blessed",
+    "cli",
+    "terminal"
   ],
-  "author": "TJ Cole",
-  "license": "ISC",
+  "author": "TJ Cole <thomas.jm.cole@gmail.com> (http://www.github.com/Kolossion",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/Kolossion/paladin/issues"
   },
-  "homepage": "https://github.com/Kolossion/paladin#readme"
+  "homepage": "https://github.com/Kolossion/paladin#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4",
+    "@babel/preset-react": "^7.7.4",
+    "eslint": "^6.7.1",
+    "eslint-plugin-react": "^7.16.0",
+    "rimraf": "^3.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.19.0",
+    "moment": "^2.24.0",
+    "neo-blessed": "^0.2.0",
+    "react": "^16.12.0",
+    "react-blessed": "^0.6.2",
+    "winston": "^3.2.1"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react"
+    ]
+  }
 }
