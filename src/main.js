@@ -15,4 +15,10 @@ screen.key(['escape', 'q', 'C-c'], (ch, key) => {
   return process.exit(0)
 })
 
-const component = render(<App />, screen)
+const component = render(
+  <App 
+    debug={(message) => screen.debug(message)}
+    onKeyPress={(keys, handler) => screen.key(keys, handler)}
+  />
+  , screen
+)
