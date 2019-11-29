@@ -7,8 +7,6 @@ class App extends Component {
     this.props.onKeyPress(['n'], (ch, key) => {
       appStore.nextTurn()
     })
-
-
   }
 
   componentDidCatch(error, errorInfo) {
@@ -18,34 +16,34 @@ class App extends Component {
 
   renderItems() {
     let buffer = []
-    for (let i = 0; i < 10; i++) {
-      buffer.push(`${appStore.currentTurn == i ? '● ' : '○ '}` + '{|} Monstar yo ')
+    for (let i = 0; i < appStore.creatures.length; i++) {
+      buffer.push(`${appStore.currentTurn == i ? '● ' : '○ '}` + `{|} ${appStore.creatures[i].name} `)
     }
+    //   [(`${'● '}` + '{|} hello ')
+    //     , (`${'○ '}` + '{|} hello ')
+    //   ].join('\n')
+    // }
 
     return buffer.join('\n')
   }
 
   render() {
     return (
-      <element>
-        <box 
-        // label="hello"
-        // top="center"
-        // left="center"
-        // width="50%"
-        // height="50%"
-          border={ {type: 'line'} }
-          style={ {border: {fg: 'cyan'}} }
-          content={ this.renderItems() }
-          //   [(`${'● '}` + '{|} hello ')
-          //     , (`${'○ '}` + '{|} hello ')
-          //   ].join('\n')
-          // }
-          tags
-        >
-        </box>
+      // <element>
+      <box 
+        label={`hello ${appStore.round}`}
+        top="center"
+        left="center"
+        width="100%-2"
+        height="100%-2"
+        border={ {type: 'line'} }
+        style={ {border: {fg: 'cyan'}} }
+        content={ this.renderItems() }
+        tags
+      >
+      </box>
 
-      </element>
+    // </element>
     )
   }
 }
