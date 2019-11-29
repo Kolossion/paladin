@@ -1,10 +1,28 @@
 import React, { Component } from 'react'
+import { view } from 'react-easy-state'
+import appStore from '../store'
 
 class App extends Component {
-  // let [index, setIndex] = useState(0)
+  componentDidMount() {
+    this.props.onKeyPress(['n'], (ch, key) => {
+      appStore.nextTurn()
+    })
+
+
+  }
+
   componentDidCatch(error, errorInfo) {
     console.log('ERROR', error)
     console.log('ERROR Info', errorInfo)
+  }
+
+  renderItems() {
+    let buffer = []
+    for (let i = 0; i < 10; i++) {
+      buffer.push(`${appStore.currentTurn == i ? '● ' : '○ '}` + '{|} Monstar yo ')
+    }
+
+    return buffer.join('\n')
   }
 
   render() {
@@ -18,11 +36,11 @@ class App extends Component {
         // height="50%"
           border={ {type: 'line'} }
           style={ {border: {fg: 'cyan'}} }
-          content={
-            [(`${'● '}` + '{|} hello ')
-              , (`${'○ '}` + '{|} hello ')
-            ].join('\n')
-          }
+          content={ this.renderItems() }
+          //   [(`${'● '}` + '{|} hello ')
+          //     , (`${'○ '}` + '{|} hello ')
+          //   ].join('\n')
+          // }
           tags
         >
         </box>
@@ -32,4 +50,4 @@ class App extends Component {
   }
 }
 
-export default App
+export default view(App)
