@@ -34,11 +34,11 @@ const appStore = store({
   creatures: genDummyCreatures(),
   
   nextTurn() {
-    if (appStore.currentTurn == appStore.creatures.length - 1) {
-      appStore.currentTurn = 0
-      appStore.round += 1
+    if (this.currentTurn == this.creatures.length - 1) {
+      this.currentTurn = 0
+      this.round += 1
     } else {
-      appStore.currentTurn = appStore.currentTurn + 1
+      this.currentTurn = this.currentTurn + 1
     }
   }
   // inCombat: false,

@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import { view } from 'react-easy-state'
 import appStore from '../store'
+import InitPanel from './InitPanel'
 
 class App extends Component {
   componentDidMount() {
     this.props.onKeyPress(['n'], (ch, key) => {
       appStore.nextTurn()
+      console.log('APP STORE TURN', appStore.currentTurn)
     })
   }
 
@@ -14,35 +16,16 @@ class App extends Component {
     console.log('ERROR Info', errorInfo)
   }
 
-  renderItems() {
-    let buffer = []
-    for (let i = 0; i < appStore.creatures.length; i++) {
-      buffer.push(`${appStore.currentTurn == i ? '● ' : '○ '}` + `{|} ${appStore.creatures[i].name} `)
-    }
-    //   [(`${'● '}` + '{|} hello ')
-    //     , (`${'○ '}` + '{|} hello ')
-    //   ].join('\n')
-    // }
-
-    return buffer.join('\n')
-  }
 
   render() {
     return (
       // <element>
-      <box 
-        label={`hello ${appStore.round}`}
-        top="center"
-        left="center"
-        width="100%-2"
-        height="100%-2"
-        border={ {type: 'line'} }
-        style={ {border: {fg: 'cyan'}} }
-        content={ this.renderItems() }
-        tags
+      <box
+        width='100%'
+        height='100%'
       >
+        <InitPanel />
       </box>
-
     // </element>
     )
   }
