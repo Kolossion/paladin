@@ -8,7 +8,8 @@ import { selectActors, selectTurn } from '../selectors/initiative'
 class App extends Component {
   componentDidMount() {
     this.props.onKeyPress(['n'], (ch, key) => {
-      return this.props.nextTurn()
+      console.log(this.props)
+      this.props.nextTurn()
     })
   }
 
