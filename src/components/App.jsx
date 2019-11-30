@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
-import { view } from 'react-easy-state'
-import appStore from '../store'
-import InitPanel from './InitPanel'
+import { connect } from 'react-redux'
+import InitPanel from './InitiativePanel'
+
+import { nextTurn } from '../actions/initiative'
+import { selectActors, selectTurn } from '../selectors/initiative'
 
 class App extends Component {
   componentDidMount() {
     this.props.onKeyPress(['n'], (ch, key) => {
-      appStore.nextTurn()
-      console.log('APP STORE TURN', appStore.currentTurn)
+      return this.props.nextTurn()
     })
   }
 
@@ -16,19 +17,25 @@ class App extends Component {
     console.log('ERROR Info', errorInfo)
   }
 
-
   render() {
+    console.log('TURN', this.props.turn)
     return (
-      // <element>
       <box
         width='100%'
         height='100%'
       >
-        <InitPanel />
+        <InitPanel turn={this.props.turn}/>
       </box>
-    // </element>
     )
   }
 }
 
-export default view(App)
+const mapStateToProps = (state) => ({
+  turn: selectTurn(state)
+})
+
+const mapDispatchToProps = {
+  nextTurn
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

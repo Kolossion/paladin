@@ -1,50 +1,9 @@
-import { store } from 'react-easy-state'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
 
-const genDummyCreatures = () => {
-  return [
-    { name: 'Manspazotron',
-      type: 'Ancient Black Dragon',
-      maxHP: 367,
-      curHP: 367,
-      AC: 22,
-      initBonus: 2
-    },
-    { name: 'Manspazotron',
-      type: 'Ancient Black Dragon',
-      maxHP: 367,
-      curHP: 367,
-      AC: 22,
-      initBonus: 2
-    },
-    { name: 'Manspazotron',
-      type: 'Ancient Black Dragon',
-      maxHP: 367,
-      curHP: 367,
-      AC: 22,
-      initBonus: 2
-    },
-  ]
-}
+import reducers from '../reducers'
 
-const appStore = store({
-  round: 1,
-  currentTurn: 0,
-  // creatures: [
-  // ],
-  creatures: genDummyCreatures(),
-  
-  nextTurn() {
-    if (this.currentTurn == this.creatures.length - 1) {
-      this.currentTurn = 0
-      this.round += 1
-    } else {
-      this.currentTurn = this.currentTurn + 1
-    }
-  }
-  // inCombat: false,
-  // toggleCombatState() {
-    
-  // }
-})
-
-export default appStore
+export default createStore(
+  reducers,
+  applyMiddleware(thunk)
+)

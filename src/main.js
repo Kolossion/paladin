@@ -2,6 +2,9 @@ import React from 'react'
 import blessed from 'neo-blessed'
 import { createBlessedRenderer } from 'react-blessed'
 import App from './components/App'
+import { Provider } from 'react-redux'
+
+import store from './store'
 
 const render = createBlessedRenderer(blessed)
 
@@ -16,9 +19,11 @@ screen.key(['escape', 'q', 'C-c'], (ch, key) => {
 })
 
 const component = render(
-  <App 
-    debug={(message) => screen.debug(message)}
-    onKeyPress={(keys, handler) => screen.key(keys, handler)}
-  />
+  <Provider store={store}>
+    <App 
+      debug={(message) => screen.debug(message)}
+      onKeyPress={(keys, handler) => screen.key(keys, handler)}
+    />
+  </Provider>
   , screen
 )
