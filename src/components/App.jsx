@@ -1,34 +1,34 @@
 import React, { Component } from 'react'
-import { view } from 'react-easy-state'
-import appStore from '../store'
+import { observer } from 'mobx-react'
 import InitPanel from './InitPanel'
 
+@observer
 class App extends Component {
   componentDidMount() {
     this.props.onKeyPress(['n'], (ch, key) => {
       appStore.nextTurn()
-      console.log('APP STORE TURN', appStore.currentTurn)
     })
   }
 
   componentDidCatch(error, errorInfo) {
-    console.log('ERROR', error)
-    console.log('ERROR Info', errorInfo)
+    this.props.debug(`ERROR ${error}`)
+    this.props.debug(`ERROR Info ${errorInfo}`)
   }
 
 
   render() {
+    const store = this.props.store
     return (
       // <element>
       <box
         width='100%'
         height='100%'
       >
-        <InitPanel />
+        <InitPanel actors={store.actors}/>
       </box>
     // </element>
     )
   }
 }
 
-export default view(App)
+export default App

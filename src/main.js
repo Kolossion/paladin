@@ -2,6 +2,9 @@ import React from 'react'
 import blessed from 'neo-blessed'
 import { createBlessedRenderer } from 'react-blessed'
 import App from './components/App'
+import AppModel from './store/AppModel'
+
+const appStore = new AppModel()
 
 const render = createBlessedRenderer(blessed)
 
@@ -17,6 +20,7 @@ screen.key(['escape', 'q', 'C-c'], (ch, key) => {
 
 const component = render(
   <App 
+    store={appStore}
     debug={(message) => screen.debug(message)}
     onKeyPress={(keys, handler) => screen.key(keys, handler)}
   />

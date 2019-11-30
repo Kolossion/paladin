@@ -1,9 +1,9 @@
 import React from 'react'
-import { view } from 'react-easy-state'
-import appStore from '../store'
+import { observer } from 'mobx-react'
 
-const InitPanel = () => {
-  const renderItems = (creatures, currentTurn) => {
+@observer
+class InitPanel extends React.Component {
+  renderItems(creatures, currentTurn) {
     let buffer = []
     for (let i = 0; i < creatures.length; i++) {
       buffer.push(`${currentTurn == i ? '● ' : '○ '}` + `{|} ${creatures[i].name}`
@@ -18,19 +18,21 @@ const InitPanel = () => {
     return buffer.join('\n')
   }
 
-  return (
-    <box 
-      label={`hello ${appStore.round}`}
-      top="center"
-      left="center"
-      width="100%-2"
-      height="100%-2"
-      border={ {type: 'line'} }
-      style={ {border: {fg: 'cyan'}} }
-      content={ renderItems(appStore.creatures, appStore.currentTurn) }
-      tags
-    />
-  )
+  render() {
+    return (
+      <box 
+        label={`hello ${appStore.round}`}
+        top="center"
+        left="center"
+        width="100%-2"
+        height="100%-2"
+        border={ {type: 'line'} }
+        style={ {border: {fg: 'cyan'}} }
+        content={ renderItems(appStore.creatures, appStore.currentTurn) }
+        tags
+      />
+    )
+  }
 }
 
-export default view(InitPanel)
+export default InitPanel

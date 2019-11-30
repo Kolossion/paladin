@@ -1,4 +1,4 @@
-import { store } from 'react-easy-state'
+import mobx, { observable, computed, action } from 'mobx'
 
 const genDummyCreatures = () => {
   return [
@@ -26,25 +26,29 @@ const genDummyCreatures = () => {
   ]
 }
 
-const appStore = store({
-  round: 1,
-  currentTurn: 0,
-  // creatures: [
-  // ],
-  creatures: genDummyCreatures(),
-  
-  nextTurn() {
-    if (this.currentTurn == this.creatures.length - 1) {
-      this.currentTurn = 0
+export default class AppModel {
+  constructor() {
+    mobx.autorun(() => console.log(this.report));
+  }
+
+  @observable turn = 0
+  @observable round = 1
+  @observable actors = []
+
+  @computed getInitiativeOrdered() {
+    return actors
+  }
+
+  @action addActor(actor) {
+    this.actors.push(actor)
+  }
+
+  @action nextTurn() {
+    if (turn == this.actors.length - 1) {
+      this.turn = 0
       this.round += 1
     } else {
-      this.currentTurn = this.currentTurn + 1
+      this.turn += 1
     }
   }
-  // inCombat: false,
-  // toggleCombatState() {
-    
-  // }
-})
-
-export default appStore
+}
